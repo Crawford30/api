@@ -22,6 +22,9 @@ use LogicException;
 use PDO;
 use PDOStatement;
 
+
+
+
 class Connection implements ConnectionInterface
 {
     use DetectsConcurrencyErrors,
