@@ -30,18 +30,18 @@ class ProductResource extends  JsonResource
 
                 'price' => $this -> price,
 
-                'stock' => $this -> stock == 0 ? 'Out of stock' : $this -> stock, //if stock == 0, rint out of stcock 
+                'stock' => $this -> stock == 0 ? 'Out of stock' : $this -> stock, //if stock == 0, print out of stcock, otherwise return stock
 
-                'discount' => $this -> discount
+                'discount' => $this -> discount,
 
-                // 'totalPrice' => round((1 - ($this -> discount/100)) * $this -> discount, 2),
+                'totalPrice' => round((1 - ($this -> discount/100)) * $this -> discount, 2),
 
-                // 'rating' => $this -> reviews -> count() > 0 ? round ($this -> reviews -> sum('star')/$this -> reviews -> count(), 2) : "No rating yet",
+                'rating' => $this -> reviews -> count() > 0 ? round ($this -> reviews -> sum('star')/$this -> reviews -> count(), 2) : "No rating yet", //reviews read from the Product Model
 
-                // 'href' => [
+                'href' => [
 
-                //     'reviews' => route('reviews.index', $this -> id)
-                // ]
+                    'reviews' => route('reviews.index', $this -> id)
+                ]
 
        ];
 
