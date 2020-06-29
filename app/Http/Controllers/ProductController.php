@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Resources\Product\ProductCollection;  //including product collection
+
+
 use App\Http\Resources\Product\ProductResource;  //including product resource
 
 use App\Model\Product;
@@ -19,7 +23,14 @@ class ProductController extends Controller
     {
         //
 
+
         return Product::all();
+
+        //return new ProductCollection(Product::all());
+
+        //NB: the USE of new will transform only one product
+
+        //return  ProductCollection::collection(Product::all());
     }
 
     /**
@@ -53,9 +64,10 @@ class ProductController extends Controller
     {
         //
 
-       // return  $product;
+        //return  $product;
 
-        //WE WRAP THE product in a new product resource(unwraps everything inside the data)
+        //WE WRAP THE product in a new product resource(unwraps everything inside the data)==
+        //For a single product
 
         return new ProductResource($product);
 

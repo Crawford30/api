@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //A product cab have many reviews// creating relationship
+    //A product can have many reviews// creating relationship
 
     public function reviews()
     {
