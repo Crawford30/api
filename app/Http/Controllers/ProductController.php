@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Product\ProductCollection;  //including product collection
 
-
 use App\Http\Resources\Product\ProductResource;  //including product resource
 
 use App\Model\Product;
@@ -21,16 +20,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
-
 
         //return Product::all(); //We are returning everything
 
-        //return new ProductCollection(Product::all());
+       // return  ProductCollection::collection(Product::all()); //BUT we want to display few items, Hence we use the product collection resource
 
-        //NB: the USE of new will transform only one product
 
-        return  ProductCollection::collection(Product::all());
+         //return new ProductCollection(Product::all());   //NB: the USE of new will transform only one product, hence we mofify to ProductCollection::collection(Product::all()); 
+
+
+        return  ProductCollection::collection(Product::all()); 
     }
 
     /**
