@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Product;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductCollection extends ResourceCollection
+class ProductCollection extends JsonResource
 
 
 //class ProductCollection extends ResourceCollection

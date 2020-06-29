@@ -21,16 +21,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        
 
 
-        return Product::all();
+        //return Product::all(); //We are returning everything
 
         //return new ProductCollection(Product::all());
 
         //NB: the USE of new will transform only one product
 
-        //return  ProductCollection::collection(Product::all());
+        return  ProductCollection::collection(Product::all());
     }
 
     /**
