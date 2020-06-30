@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewResource;
+
 use App\Model\Review;
+use App\Model\Product;
+
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -12,9 +16,21 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    //public function index()
+
+    public function index(Product $product)
     {
         //
+
+        //return Review::all();
+
+        //return  $product; //But we dont Product exactly, we want review for the product
+
+        //return $product -> reviews; //from the relationship
+
+        //After transforming, we use the resource review
+
+        return ReviewResource::collection($product -> reviews);
     }
 
     /**

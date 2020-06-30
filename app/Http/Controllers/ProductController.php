@@ -26,10 +26,14 @@ class ProductController extends Controller
        // return  ProductCollection::collection(Product::all()); //BUT we want to display few items, Hence we use the product collection resource
 
 
-         //return new ProductCollection(Product::all());   //NB: the USE of new will transform only one product, hence we mofify to ProductCollection::collection(Product::all()); 
+         //return new ProductCollection(Product::all());   //NB: the USE of new will transform only one product, hence we mofify to ProductCollection::collection(Product::all());  
 
 
-        return  ProductCollection::collection(Product::all()); 
+       // return  ProductCollection::collection(Product::all());  instaed of product all, we paginate
+
+
+        return  ProductCollection::collection(Product::paginate(20));
+
     }
 
     /**
