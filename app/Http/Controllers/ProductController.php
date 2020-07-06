@@ -9,6 +9,7 @@ use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Model\Product;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
@@ -106,7 +107,7 @@ class ProductController extends Controller
                 'data' => new ProductResource($product) //transformed to new product resource
 
 
-            ], 201  //201 for created
+            ],   Response::HTTP_CREATED //201  //201 for created
 
          );
     }
@@ -150,7 +151,30 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        //UPDATING PRODUCT
+
+
+
+       // return $request -> all();
+
+
+        //return $product;
+
+        //The request got both the new data that is $request and the old data which is $product
+
+
+
+
+        //SINCE detail and description and same, we match
+
+        $request['detail'] = $request -> description;
+
+        unset($request['description']); //we have move the data of description into detail
+
+
+        $product -> update($request -> all()); //since we are using mark assignment we go to product model and add fillable
+
+
     }
 
     /**
