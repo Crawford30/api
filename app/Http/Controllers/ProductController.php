@@ -3,16 +3,29 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Resources\Product\ProductCollection;  //including product collection
 
-use App\Http\Resources\Product\ProductResource;  //including product resource
-
+use App\Http\Requests\ProductRequest;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Model\Product;
-
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    //TO CREATE A PRODUCT WE NEED AN AUTHENTICATED USER, HENCE WE CREATE A NEW CONSTRUCTOR
+
+    public function __construct () {
+
+       //hence middleware handles authentication
+
+        $this -> middleware('auth:api') -> except('index', 'show'); //we dont it on the index and show page hence we exclude them, hence used in the store method
+    }
+
+
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -52,9 +65,50 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+   // public function store(Request $request)
+
+     public function store(ProductRequest $request)
     {
-        //
+        //THIS IS ONLY FOR AUTHENTICATED USER
+
+        //Now we use the ProductRequest in this controller
+
+        //return "joel";
+
+        //LETS GET NEW PRODUCT
+
+        $product = new Product;
+
+        //SAVING
+
+         $product -> name = $request -> name;
+
+         $product -> detail = $request -> description;
+
+         $product -> stock = $request -> stock;
+
+         $product -> price = $request -> price;
+
+         $product -> discount = $request -> discount;
+
+
+         $product -> save();
+
+
+         //WE HAVE TO GET RESPONSE OF CREATED OR ERROR
+
+       // return $request -> all();
+
+
+         return response(
+            [
+
+                'data' => new ProductResource($product) //transformed to new product resource
+
+
+            ], 201  //201 for created
+
+         );
     }
 
     /**
