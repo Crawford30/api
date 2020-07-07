@@ -175,6 +175,17 @@ class ProductController extends Controller
         $product -> update($request -> all()); //since we are using mark assignment we go to product model and add fillable
 
 
+         return response(
+            [
+
+                'data' => new ProductResource($product) //transformed to new product resource
+
+
+            ],   Response::HTTP_CREATED //201  //201 for created
+
+         );
+
+
     }
 
     /**
@@ -186,5 +197,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+
+       // return $product;
+
+        $product -> delete();
+
+        return response(null, Response::HTTP_NO_CONTENT ); //No content
     }
 }
