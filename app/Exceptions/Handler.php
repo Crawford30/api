@@ -2,14 +2,18 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Exceptions\ExceptionTrait;
+//use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+//use Symfony\Component\HttpFoundation\Response;
+//use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
+
+     use ExceptionTrait; //Using the Trait
     /**
      * A list of the exception types that are not reported.
      *
@@ -54,7 +58,6 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
 
-      
 
 
         // //HANDLING EXCEPTION
@@ -69,38 +72,48 @@ class Handler extends ExceptionHandler
           //Handling incase of a broswer, because of accceptJson in request header
         if ($request -> expectsJson()) {
 
-            //HANDLING EXCEPTION
+       //      //HANDLING EXCEPTION
 
-        if ($exception instanceof ModelNotFoundException) {
+       //  if ($exception instanceof ModelNotFoundException) {
 
-                //return response() -> json('Model Not Found', 404); //wrap it inside error
+       //          //return response() -> json('Model Not Found', 404); //wrap it inside error
 
-                return response() -> json([
+       //          return response() -> json([
 
-                    'errors' => 'Model Product not found'
+       //              'errors' => 'Model Product not found'
 
-                ], Response::HTTP_NOT_FOUND); 
+       //          ], Response::HTTP_NOT_FOUND); 
 
-              }
+       //        }
 
 
-               //ERROR HANDLING FOR INCORRECT URL
+       //         //ERROR HANDLING FOR INCORRECT URL
 
-    if ($exception instanceof NotFoundHttpException) {
+       // if ($exception instanceof NotFoundHttpException) {
 
-        //return response() -> json('Model Not Found', 404); //wrap it inside error
+       //  //return response() -> json('Model Not Found', 404); //wrap it inside error
 
-                return response() -> json([
+       //          return response() -> json([
 
-                    'errors' => 'Incorrect route'
+       //              'errors' => 'Incorrect route'
 
-                ], Response::HTTP_NOT_FOUND); 
+       //          ], Response::HTTP_NOT_FOUND); 
 
-              }
+       //        }
+
+
+
+
+            //CALL THE EXCEPTION TRAIT FILE
+
+             return   $this -> apiException($request, $exception);
+
+
+
         }
 
 
-       //dd($exception); //die and damp the exception
+       dd($exception); //die and damp the exception
 
         return parent::render($request, $exception);
     
