@@ -33,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
 
 
         //Remove exception error
-        Schema::defaultStringLength(500);
+        Schema::defaultStringLength(150);
     }
 }

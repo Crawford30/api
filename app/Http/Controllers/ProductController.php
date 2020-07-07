@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 
 
+use App\Exceptions\ProductNotBelongsToUser;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Model\Product;
+use Auth;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\HttpFoundation\Response; //use Auth
 
 class ProductController extends Controller
 {
@@ -162,7 +165,9 @@ class ProductController extends Controller
 
         //The request got both the new data that is $request and the old data which is $product
 
+        //USER ID
 
+        $this -> ProductUserCheck($product); 
 
 
         //SINCE detail and description and same, we match
@@ -196,12 +201,28 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+         $this -> ProductUserCheck($product); 
 
        // return $product;
 
         $product -> delete();
 
         return response(null, Response::HTTP_NO_CONTENT ); //No content
+    }
+
+
+
+    //FUNCTION TO CHECK THAT A PRODUCT BEING UPDATED BELONGS TO THAT USER
+
+    public function ProductUserCheck($product) { //needs to accept product in its parameter
+
+        if (Auth::id() !== $product -> user_id) {
+
+            //if true, throw a new exception
+
+            throw new ProductNotBelongsToUser;
+            
+        }
+
     }
 }

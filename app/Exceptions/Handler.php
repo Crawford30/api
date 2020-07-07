@@ -113,7 +113,7 @@ class Handler extends ExceptionHandler
         }
 
 
-       dd($exception); //die and damp the exception
+      // dd($exception); //die and damp the exception
 
         return parent::render($request, $exception);
     

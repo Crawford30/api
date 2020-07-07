@@ -60,7 +60,7 @@ trait ExceptionTrait {
               //IF THE EXCEPTIONS IS NOT ONE OF ABOVE< RETURN NORMAL EXCEPTION
               // dd($exception); //die and damp the exception
 
-       			 return parent::render($request, $exception);
+       			 return parent::render($request, $e);
         
 	}
 
