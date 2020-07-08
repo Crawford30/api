@@ -117,9 +117,38 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Review $review)
+
+     //NB: http://localhost:8000/api/products/38/reviews/186
+        //we need o get the id of the product also
+   // public function update(Request $request, Review $review)
+
+
+    public function update(Request $request, Product $product, Review $review)
     {
-        //
+        //Request $request == new data
+        // Review $review===old data
+
+       
+
+
+
+       // return $product;
+
+        $review  -> update($request -> all());
+
+
+        //return the response
+
+        return response([
+
+            'data' => new ReviewResource($review)
+
+
+
+        ],Response::HTTP_CREATED);
+
+
+
     }
 
     /**
@@ -128,8 +157,20 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    //public function destroy(Review $review) we need to include product id
+
+     public function destroy(Product $product, Review $review)
     {
-        //
+        //DELETING
+
+        $review -> delete();
+
+
+        //return the response
+
+        return response(null, Response::HTTP_NO_CONTENT);
+
+
+
     }
 }

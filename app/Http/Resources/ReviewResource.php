@@ -20,6 +20,8 @@ class ReviewResource extends JsonResource
 
         return [
 
+            'id' => $this -> id, //for updating
+
             'customer' => $this -> customer,
             //review body 
 
