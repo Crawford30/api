@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReviewRequest;
 use App\Http\Resources\ReviewResource;
-
-use App\Model\Review;
 use App\Model\Product;
-
+use App\Model\Review;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReviewController extends Controller
 {
@@ -49,9 +49,43 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+
+    //made Review request with rules, hence instaed of request(Request $request), we use ReviewRequest
+   // public function store(Request $request, Product $product)
+
+     public function store(ReviewRequest $request, Product $product)
     {
-        //
+        //from php artsan list, it accepts the product id, hence we modify store(Request $request) to store(Request $request, Product $product),
+
+        
+
+       // return $product;
+
+        //we need to create the review
+
+        //we have to store a particular review
+
+        $review = new Review($request -> all()); //create a new review
+
+
+
+        //connect the review to product, save the review with the product id
+
+        $product -> reviews() -> save($review);
+
+
+        //return the response
+
+        return response([
+
+            'data' => new ReviewResource($review)
+
+
+
+        ],Response::HTTP_CREATED);
+
+       
     }
 
     /**
